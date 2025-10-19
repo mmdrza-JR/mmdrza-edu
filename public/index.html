@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mmdrza Ultra AI Advisor | داشبورد هوش مصنوعی</title>
+
+  <!-- Frameworks -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+  <style>
+    body {
+      background: radial-gradient(circle at center, #010b17 0%, #020617 40%, #0b172b 100%);
+      font-family: 'Vazir', sans-serif;
+      color: #e2e8f0;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* 🌠 Animated Star Background */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url("https://www.transparenttextures.com/patterns/stardust.png");
+      animation: moveStars 60s linear infinite;
+      opacity: 0.25;
+    }
+    @keyframes moveStars {
+      from { background-position: 0 0; }
+      to { background-position: 1000px 1000px; }
+    }
+
+    /* 🚀 Dashboard Container */
+    .dashboard {
+      max-width: 1100px;
+      margin: 80px auto;
+      z-index: 2;
+      position: relative;
+    }
+
+    .glass-panel {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(56,189,248,0.3);
+      border-radius: 18px;
+      padding: 35px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 60px rgba(56,189,248,0.15);
+      transition: all 0.4s ease;
+      overflow: hidden;
+    }
+
+    .glass-panel:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 80px rgba(56,189,248,0.3);
+    }
+
+    .neon-title {
+      color: #38bdf8;
+      font-weight: 800;
+      text-shadow: 0 0 15px rgba(56,189,248,0.8);
+    }
+
+    /* ✨ Chat Bubbles */
+    #chatBox {
+      height: 340px;
+      overflow-y: auto;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      padding: 15px;
+      margin-bottom: 15px;
+      scroll-behavior: smooth;
+    }
+
+    .ai-bubble, .user-bubble {
+      border-radius: 14px;
+      padding: 10px 16px;
+      margin-bottom: 10px;
+      animation: fadeIn 0.4s ease;
+      word-wrap: break-word;
+    }
+
+    .ai-bubble {
+      background: rgba(56,189,248,0.15);
+      box-shadow: 0 0 25px rgba(56,189,248,0.25);
+      align-self: start;
+    }
+
+    .user-bubble {
+      background: rgba(56,189,248,0.35);
+      align-self: end;
+      box-shadow: 0 0 15px rgba(56,189,248,0.3);
+    }
+
+    /* ⚡ Buttons */
+    .btn-cyber {
+      background: linear-gradient(90deg, #0ea5e9, #22d3ee);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    .btn-cyber:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(56,189,248,0.5);
+    }
+
+    /* 📈 Chart Glow */
+    #statsChart {
+      filter: drop-shadow(0 0 20px rgba(56,189,248,0.3));
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+
+    /* 🌐 Loader Orb */
+    #pageLoader {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #000814, #000);
+      z-index: 9999;
+      transition: opacity 0.8s ease;
+    }
+    .loader-orb {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid rgba(56,189,248,0.25);
+      box-shadow: 0 0 60px rgba(56,189,248,0.4);
+      animation: spinOrb 2.8s linear infinite, pulseGlow 1.5s ease-in-out infinite;
+    }
+    @keyframes spinOrb {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 40px rgba(56,189,248,0.4); }
+      50% { box-shadow: 0 0 80px rgba(56,189,248,0.8); }
+    }
+  </style>
+</head>
+
+<body class="animate__animated animate__fadeIn">
+  <div id="pageLoader"><div class="loader-orb"></div></div>
+
+  <div class="container dashboard">
+    <!-- 🔥 Header -->
+    <div class="text-center mb-5 animate__animated animate__fadeInDown">
+      <i class="fa-solid fa-brain fa-3x text-info mb-3 pulse-glow"></i>
+      <h2 class="neon-title">Mmdrza Ultra AI Advisor</h2>
+      <p class="text-muted">خوش اومدی <span id="userName" class="fw-bold text-cyan"></span> 👋</p>
+    </div>
+
+    <!-- 💬 Chat Panel -->
+    <div class="glass-panel mb-4 animate__animated animate__fadeInUp">
+      <h5 class="mb-3"><i class="fa-solid fa-robot text-info me-2"></i> دستیار هوشمند</h5>
+      <div id="chatBox" class="d-flex flex-column"></div>
+
+      <form id="chatForm" class="d-flex gap-2 mt-3">
+        <input id="userInput" class="form-control bg-transparent border-cyan text-white" placeholder="سؤالت رو بنویس..." autocomplete="off">
+        <button class="btn btn-cyber px-4">ارسال</button>
+      </form>
+    </div>
+
+    <!-- 📊 Stats Panel -->
+    <div class="glass-panel animate__animated animate__fadeInUp">
+      <h5 class="mb-4"><i class="fa-solid fa-chart-pie text-info me-2"></i> تحلیل پیشرفت یادگیری</h5>
+      <canvas id="statsChart" height="130"></canvas>
+    </div>
+
+    <footer class="mt-5">© 2025 Mmdrza Ultra Genesis — Powered by Neural Core</footer>
+  </div>
+
+  <script>
+    // 🌈 Hide Loader
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("pageLoader");
+      loader.style.opacity = "0";
+      setTimeout(() => loader.style.display = "none", 800);
+    });
+
+    // 🧠 Load User Name
+    const name = localStorage.getItem("pendingName") || "کاربر";
+    document.getElementById("userName").textContent = name;
+
+    // 💬 Chat Logic
+    const chatBox = document.getElementById("chatBox");
+    const form = document.getElementById("chatForm");
+
+    const addMessage = (text, isUser = false) => {
+      const msgDiv = document.createElement("div");
+      msgDiv.className = isUser ? "user-bubble align-self-end" : "ai-bubble";
+      msgDiv.innerHTML = text;
+      chatBox.appendChild(msgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    };
+
+    const typeAIMessage = async (text) => {
+      const aiDiv = document.createElement("div");
+      aiDiv.className = "ai-bubble";
+      chatBox.appendChild(aiDiv);
+
+      for (let i = 0; i < text.length; i++) {
+        aiDiv.innerHTML = text.slice(0, i + 1) + "▋";
+        chatBox.scrollTop = chatBox.scrollHeight;
+        await new Promise(r => setTimeout(r, 25));
+      }
+      aiDiv.innerHTML = text;
+    };
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const input = document.getElementById("userInput");
+      const msg = input.value.trim();
+      if (!msg) return;
+
+      addMessage(msg, true);
+      input.value = "";
+
+      addMessage("⏳ در حال پردازش...", false);
+      try {
+        const res = await fetch("/api/ai/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: msg })
+        });
+        const data = await res.json();
+        chatBox.lastChild.remove();
+        await typeAIMessage(data.reply || "⚠️ پاسخی دریافت نشد");
+      } catch {
+        chatBox.lastChild.remove();
+        addMessage("❌ خطا در ارتباط با سرور", false);
+      }
+    });
+
+    // 📊 Chart Setup
+    new Chart(document.getElementById("statsChart"), {
+      type: "doughnut",
+      data: {
+        labels: ["ریاضی", "علوم", "زبان", "تاریخ", "فیزیک"],
+        datasets: [{
+          data: [22, 18, 26, 12, 22],
+          borderWidth: 2,
+          backgroundColor: [
+            "rgba(56,189,248,0.7)",
+            "rgba(99,102,241,0.7)",
+            "rgba(139,92,246,0.7)",
+            "rgba(236,72,153,0.7)",
+            "rgba(34,197,94,0.7)"
+          ],
+          borderColor: "#0f172a"
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { labels: { color: "#e2e8f0" } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

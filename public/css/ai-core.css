@@ -1,0 +1,87 @@
+body {
+  font-family: "Vazir", sans-serif;
+  background: radial-gradient(circle at top, #010b17 0%, #020617 35%, #0b172b 100%);
+  color: #e2e8f0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ====== Glass Box ====== */
+.glass-box {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(22px) saturate(120%);
+  border-radius: 22px;
+  padding: 45px;
+  box-shadow:
+    0 0 50px rgba(56,189,248,0.18),
+    0 0 120px rgba(56,189,248,0.08) inset;
+  border: 1px solid rgba(56,189,248,0.3);
+  width: 90%;
+  max-width: 480px;
+  transition: all 0.4s ease;
+}
+
+.glass-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 70px rgba(56,189,248,0.35);
+}
+
+/* ====== Neon Button ====== */
+.btn-neon {
+  display: inline-block;
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-neon:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 35px rgba(56,189,248,0.6);
+}
+
+/* ====== Logo Light ====== */
+.ai-logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin: auto;
+  background: radial-gradient(circle, #38bdf8 0%, transparent 70%);
+  box-shadow: 0 0 25px #38bdf8, inset 0 0 10px #0ea5e9;
+  animation: pulse 3s infinite ease-in-out;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+/* ====== Inputs ====== */
+.form-control {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 15px #22d3ee;
+  border-color: #38bdf8;
+}
+
+/* ====== Animated Subtitle ====== */
+.ai-subtitle {
+  color: #7dd3fc;
+  margin-top: 8px;
+  font-size: 1rem;
+}

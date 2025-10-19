@@ -37,6 +37,7 @@ const __dirname = path.dirname(__filename);
 
 // === Initialize App ===
 const app = express();
+app.set("trust proxy", 1);
 
 // ===============================================================
 // 🧩 Middleware Stack

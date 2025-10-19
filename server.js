@@ -103,10 +103,14 @@ app.use(morgan("dev"));
 // ===============================================================
 // 🚀 Static File Serving (Frontend)
 // ===============================================================
-app.use(express.static(path.join(__dirname, "public")));
+// Default Route (load register.html)
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "register.html"));
 });
+
+// Static files
+app.use(express.static(path.join(__dirname, "public")));
+
 
 // ===============================================================
 // 🧭 Routes
